@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>PlayerIOClient-Signed</id>
+    <version>0.0</version>
+    <authors>Yonom</authors>
+    <owners>Yonom</owners>
+    <projectUrl>https://github.com/Yonom/PlayerIOClient-Signed</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A signed version of the PlayerIOClient.dll file.</description>
+    <tags>PlayerIO</tags>
+  </metadata>
+  <files>
+    <file src="temp\PlayerIOClient.dll" target="lib" /> 
+    <file src="PlayerIOClient.xml" target="lib" />
+  </files>
+</package>
