@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>PlayerIOClient-Signed</id>
-    <version>0.0</version>
+    <version>$version$</version>
     <authors>Yonom</authors>
     <owners>Yonom</owners>
     <projectUrl>https://github.com/Yonom/PlayerIOClient-Signed</projectUrl>
