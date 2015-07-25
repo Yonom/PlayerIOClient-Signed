@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>PlayerIOClient</name>
+        <name>PlayerIOClientUnmerged</name>
     </assembly>
     <members>
         <member name="T:PlayerIOClient.Achievements">
@@ -188,6 +188,12 @@
             <param name="successCallback">Callback that will be called when the operation succeeds.</param>
             <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
         </member>
+        <member name="M:PlayerIOClient.GameRequests.ShowSendDialog(System.String,System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.Callback{PlayerIOClient.GameRequestSendDialogResult})">
+            <summary>Show a dialog to send GameRequests</summary>
+            <param name="requestType">The request type of the request to send.</param>
+            <param name="requestData">Data that will be available to the recipient of the request with information about the request. Useful for passing any kind of data to the recipient.</param>
+            <param name="callback">Callback that will be called when the dialog close, with information about the requests sent. NOTE: There is no way to tell if the end-user copied a link and sent it to another player.</param>
+        </member>
         <member name="M:PlayerIOClient.GameRequests.Refresh">
             <summary>Refresh the list of received requests.</summary>
         </member>
@@ -237,271 +243,332 @@
         <member name="P:PlayerIOClient.GameRequestSendDialogResult.Recipients">
             <summary>The userIds of recipients that are already Yahoo users</summary>
         </member>
-        <member name="T:PlayerIOClient.PartnerPay">
+        <member name="T:PlayerIOClient.OneScore">
             <summary>
-            The Player.IO PartnerPay service.
-            <para>Here's how to connect to Player.IO and setting a partner id:</para>
-            <code>
-            //Connecting to Player.IO and setting a partner id
-            var client = PlayerIO.Connect(
-            	"[Enter your game id here]",
-            	"public",
-            	"user-id",
-            	null,
-            	"partner-id"
-            );
-            </code>
-            
-            <para>This is how you check and set the partner id of a user:</para>
-            <code>
-            if (String.IsNullOrEmpty(client.PartnerPay.CurrentPartner)) {
-            	client.PartnerPay.SetTag("partner-id");
-            }
-            </code>
-            
-            <para>Finally, here's how to trigger a custom action:</para>
-            <code>
-            client.PartnerPay.Trigger("levelfive");
-            </code>
+            The Player.IO OneScore service
             </summary>
         </member>
-        <member name="M:PlayerIOClient.PartnerPay.Trigger(System.String)">
-            <summary>Triggers the custom PartnerPay action identified by the given key</summary>
-            <param name="key">The key of the action</param>
+        <member name="M:PlayerIOClient.OneScore.Refresh">
+            <summary>Refresh OneScore for the user.</summary>
         </member>
-        <member name="M:PlayerIOClient.PartnerPay.Trigger(System.String,System.UInt32)">
-            <summary>Triggers the custom PartnerPay action identified by the given key</summary>
-            <param name="key">The key of the action</param>
-            <param name="count">The number of actions to trigger</param>
+        <member name="M:PlayerIOClient.OneScore.Refresh(PlayerIOClient.Callback)">
+            <summary>Refresh OneScore for the user.</summary>
+            <param name="successCallback">Callback that will be called when the operation succeeds.</param>
         </member>
-        <member name="M:PlayerIOClient.PartnerPay.Trigger(System.String,PlayerIOClient.Callback)">
-            <summary>Triggers the custom PartnerPay action identified by the given key</summary>
-            <param name="key">The key of the action</param>
-            <param name="successCallback">Callback that will be called if the action is succesful.</param>
+        <member name="M:PlayerIOClient.OneScore.Refresh(PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Refresh OneScore for the user.</summary>
+            <param name="successCallback">Callback that will be called when the operation succeeds.</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
         </member>
-        <member name="M:PlayerIOClient.PartnerPay.Trigger(System.String,PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Triggers the custom PartnerPay action identified by the given key</summary>
-            <param name="key">The key of the action</param>
-            <param name="successCallback">Callback that will be called if the action is succesful.</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        <member name="M:PlayerIOClient.OneScore.Set(System.Int32)">
+            <summary>Sets OneScore for the user. </summary>
+            <param name="score">The score to set for the user.</param>
         </member>
-        <member name="M:PlayerIOClient.PartnerPay.Trigger(System.String,System.UInt32,PlayerIOClient.Callback)">
-            <summary>Triggers the custom PartnerPay action identified by the given key</summary>
-            <param name="key">The key of the action</param>
-            <param name="count">The number of actions to trigger</param>
-            <param name="successCallback">Callback that will be called if the action is succesful.</param>
+        <member name="M:PlayerIOClient.OneScore.Set(System.Int32,PlayerIOClient.Callback{PlayerIOClient.OneScoreValue})">
+            <summary>Sets OneScore for the user. </summary>
+            <param name="score">The score to set for the user.</param>
+            <param name="successCallback">Callback that will be called when the operation succeeds.</param>
         </member>
-        <member name="M:PlayerIOClient.PartnerPay.Trigger(System.String,System.UInt32,PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Triggers the custom PartnerPay action identified by the given key</summary>
-            <param name="key">The key of the action</param>
-            <param name="count">The number of actions to trigger</param>
-            <param name="successCallback">Callback that will be called if the action is succesful.</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        <member name="M:PlayerIOClient.OneScore.Set(System.Int32,PlayerIOClient.Callback{PlayerIOClient.OneScoreValue},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Sets OneScore for the user. </summary>
+            <param name="score">The score to set for the user.</param>
+            <param name="successCallback">Callback that will be called when the operation succeeds.</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
         </member>
-        <member name="M:PlayerIOClient.PartnerPay.SetTag(System.String)">
-            <summary>Set (or change) the PartnerPay partner id of the connected user</summary>
-            <param name="partnerId">The PartnerPay partner id</param>
+        <member name="M:PlayerIOClient.OneScore.Add(System.Int32)">
+            <summary>Adds the score to the OneScore for the user. </summary>
+            <param name="score">The score to add for the user.</param>
         </member>
-        <member name="M:PlayerIOClient.PartnerPay.SetTag(System.String,PlayerIOClient.Callback)">
-            <summary>Set (or change) the PartnerPay partner id of the connected user</summary>
-            <param name="partnerId">The PartnerPay partner id</param>
-            <param name="successCallback">Callback that will be called if the action is succesful.</param>
+        <member name="M:PlayerIOClient.OneScore.Add(System.Int32,PlayerIOClient.Callback{PlayerIOClient.OneScoreValue})">
+            <summary>Adds the score to the OneScore for the user. </summary>
+            <param name="score">The score to add for the user.</param>
+            <param name="successCallback">Callback that will be called when the operation succeeds.</param>
         </member>
-        <member name="M:PlayerIOClient.PartnerPay.SetTag(System.String,PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Set (or change) the PartnerPay partner id of the connected user</summary>
-            <param name="partnerId">The PartnerPay partner id</param>
-            <param name="successCallback">Callback that will be called if the action is succesful.</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        <member name="M:PlayerIOClient.OneScore.Add(System.Int32,PlayerIOClient.Callback{PlayerIOClient.OneScoreValue},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Adds the score to the OneScore for the user.</summary>
+            <param name="score">The score to add for the user.</param>
+            <param name="successCallback">Callback that will be called when the operation succeeds.</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
         </member>
-        <member name="P:PlayerIOClient.PartnerPay.CurrentPartner">
+        <member name="M:PlayerIOClient.OneScore.Load(System.String[])">
+            <summary>Loads OneScore for multiple users.</summary>
+            <param name="userIds">The user ids to load OneScore for.</param>
+        </member>
+        <member name="M:PlayerIOClient.OneScore.Load(System.String[],PlayerIOClient.Callback{PlayerIOClient.OneScoreValue[]})">
+            <summary>Loads OneScore for multiple users.</summary>
+            <param name="userIds">The user ids to load OneScore for.</param>
+            <param name="successCallback">Callback that will be called when the operation succeeds. Contains the loaded list of OneScores.</param>
+        </member>
+        <member name="M:PlayerIOClient.OneScore.Load(System.String[],PlayerIOClient.Callback{PlayerIOClient.OneScoreValue[]},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Loads OneScore for multiple users.</summary>
+            <param name="userIds">The user ids to load OneScore for.</param>
+            <param name="successCallback">Callback that will be called when the operation succeeds. Contains the loaded list of OneScores.</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
+        </member>
+        <member name="P:PlayerIOClient.OneScore.Score">
             <summary>
-            The current partner id of the connected user, if any.
+            OneScore value
             </summary>
         </member>
-        <member name="T:PlayerIOClient.QuickConnect">
+        <member name="P:PlayerIOClient.OneScore.Percentile">
             <summary>
-            Entry class for making a QuickConnect connection to Player.IO
-            <para>Here is an example on how to register a new SimpleUser:</para>
-            <code>
-            //Register a SimpleUser
-            PlayerIO.QuickConnect.SimpleRegister(
-            	"[Enter your game id here]",
-            	"username",
-            	"password",
-            	"email",
-            	null, //Optional captchakey
-            	null, //Optional captchavalue
-            	null, //Optional extra data
-            	null, //Optional partner id
-            	delegate(Client client) {
-            		//Here's a client, do something with the client.
-            	},
-            	delegate(PlayerIORegistrationError error) {
-            		Console.WriteLine(error.Message);
-            	}
-            );
-            </code>
-            <para>And a returning user can connect like this:</para>
-            <code>
-            //Connect with a SimpleUser
-            PlayerIO.QuickConnect.SimpleConnect(
-            	"[Enter your game id here]",
-            	"username",
-            	"password",
-            	delegate(Client client) {
-            		//Here's a client, do something with the client.
-            	},
-            	delegate(PlayerIORegistrationError error) {
-            		Console.WriteLine(error.Message);
-            	}
-            );
-            </code>
-            <para>After registering or connecting, you get a Client object which you can then use just as if you used the regular Connect method.</para>
-            <para>Note that unlike the regular Connect method you don't specify the name of the connection to use, instead you set this up in the QuickConnect admin panel for your game.</para>
+            The percentile compared to all other players. A value from 0 -> 100. A value of 30.0 means you are in the bottom 30% of players. A value of 100 means you are in the top 100% with other players.
             </summary>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleConnect(System.String,System.String,System.String)">
-            <summary>Authenticates a user in the simple user db and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="usernameOrEmail">The username or email of the user you wish to authenticate.</param>
-            <param name="password">The password of the user you wish to authenticate.</param>
-            <returns>The connected client</returns>
+        <member name="P:PlayerIOClient.OneScore.TopRank">
+            <summary>
+            The absolute ranking number -- if you are one of the N top players, then it returns N.  1 means you are the best.  Returns 0 if you are not one the top N players.  (N is currently 1000.)
+            </summary>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleConnect(System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client})">
-            <summary>Authenticates a user in the simple user db and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="usernameOrEmail">The username or email of the user you wish to authenticate.</param>
-            <param name="password">The password of the user you wish to authenticate.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
+        <member name="T:PlayerIOClient.OneScoreValue">
+            <summary>
+            OneScore value and Percentile
+            </summary>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleConnect(System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Authenticates a user in the simple user db and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="usernameOrEmail">The username or email of the user you wish to authenticate.</param>
-            <param name="password">The password of the user you wish to authenticate.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        <member name="P:PlayerIOClient.OneScoreValue.Score">
+            <summary>The score</summary>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleGetCaptcha(System.String,System.Int32,System.Int32)">
-            <summary>Creates a Captcha image and key, to be used for registrations where the added security of Captcha is required..</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
-            <param name="width">The width of the Captcha image.</param>
-            <param name="height">The height of the Captcha image.</param>
-            <returns>Information about the captcha image</returns>
+        <member name="P:PlayerIOClient.OneScoreValue.Percentile">
+            <summary>The percentile compared to all other players. A value from 0 -> 100. A value of 30.0 means you are in the bottom 30% of players. A value of 100 means you are in the top 100% with other players.</summary>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleGetCaptcha(System.String,System.Int32,System.Int32,PlayerIOClient.Callback{PlayerIOClient.SimpleGetCaptchaOutput})">
-            <summary>Creates a Captcha image and key, to be used for registrations where the added security of Captcha is required..</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
-            <param name="width">The width of the Captcha image.</param>
-            <param name="height">The height of the Captcha image.</param>
-            <param name="successCallback">Callback with information about the captcha image, if successful</param>
+        <member name="P:PlayerIOClient.OneScoreValue.TopRank">
+            <summary>
+            The absolute ranking number -- if you are one of the N top players, then it returns N.  1 means you are the best.  Returns 0 if you are not one the top N players.  (N is currently 1000.)
+            </summary>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleGetCaptcha(System.String,System.Int32,System.Int32,PlayerIOClient.Callback{PlayerIOClient.SimpleGetCaptchaOutput},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Creates a Captcha image and key, to be used for registrations where the added security of Captcha is required..</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
-            <param name="width">The width of the Captcha image.</param>
-            <param name="height">The height of the Captcha image.</param>
-            <param name="successCallback">Callback with information about the captcha image, if successful</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        <member name="T:PlayerIOClient.PlayerInsight">
+            <summary>
+            PlayerInsight
+            </summary>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleRegister(System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
-            <summary>Registers a new user in the simple user db and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
-            <param name="username">The username of the new user.</param>
-            <param name="password">The password of the new user.</param>
-            <param name="email">The email of the new user. (optional)</param>
-            <param name="captchaKey">(only if captcha is required) The key of the Captcha image used to get the user to write in the Captcha value</param>
-            <param name="captchaValue">(only if captcha is required) The string the user entered in response to the captcha image</param>
-            <param name="extraData">Any extra data that you wish to store with the user such as gender, birthdate, etc. (optional)</param>
-            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
-            <returns>The connected client</returns>
+        <member name="M:PlayerIOClient.PlayerInsight.SetSegments(System.String[])">
+            <summary>Assign custom PlayerInsight segments to the current user</summary>
+            <param name="segments">Custom segments for the user in PlayerInsight, each string should be in the form 'segmentGroup:value', like 'adcampaign:googleads'.</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleRegister(System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,PlayerIOClient.Callback{PlayerIOClient.Client})">
-            <summary>Registers a new user in the simple user db and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
-            <param name="username">The username of the new user.</param>
-            <param name="password">The password of the new user.</param>
-            <param name="email">The email of the new user. (optional)</param>
-            <param name="captchaKey">(only if captcha is required) The key of the Captcha image used to get the user to write in the Captcha value</param>
-            <param name="captchaValue">(only if captcha is required) The string the user entered in response to the captcha image</param>
-            <param name="extraData">Any extra data that you wish to store with the user such as gender, birthdate, etc. (optional)</param>
-            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
+        <member name="M:PlayerIOClient.PlayerInsight.SetSegments(System.String[],PlayerIOClient.Callback)">
+            <summary>Assign custom PlayerInsight segments to the current user</summary>
+            <param name="segments">Custom segments for the user in PlayerInsight, each string should be in the form 'segmentGroup:value', like 'adcampaign:googleads'.</param>
+            <param name="successCallback">Callback that will be called when the operation succeeds</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleRegister(System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIORegistrationError})">
-            <summary>Registers a new user in the simple user db and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
-            <param name="username">The username of the new user.</param>
-            <param name="password">The password of the new user.</param>
-            <param name="email">The email of the new user. (optional)</param>
-            <param name="captchaKey">(only if captcha is required) The key of the Captcha image used to get the user to write in the Captcha value</param>
-            <param name="captchaValue">(only if captcha is required) The string the user entered in response to the captcha image</param>
-            <param name="extraData">Any extra data that you wish to store with the user such as gender, birthdate, etc. (optional)</param>
-            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
-            <param name="errorCallback">Callback with details about why the registration failed, if it failed.</param>
+        <member name="M:PlayerIOClient.PlayerInsight.SetSegments(System.String[],PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Assign custom PlayerInsight segments to the current user</summary>
+            <param name="segments">Custom segments for the user in PlayerInsight, each string should be in the form 'segmentGroup:value', like 'adcampaign:googleads'.</param>
+            <param name="successCallback">Callback that will be called when the operation succeeds</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleRecoverPassword(System.String,System.String)">
-            <summary>Initiates the password recovery process for a user. The user must have supplied an email address during registration.</summary>
-            <param name="gameId">The game id of the game the user is registered in.</param>
-            <param name="usernameOrEmail">The username or email address of the user that wishes to recover his password.</param>
+        <member name="M:PlayerIOClient.PlayerInsight.GetSegment(System.String)">
+             <summary>Gets the segment value for the given segment group. For instance, if the player is tagged in the segment 'source:facebook' the method will return 'facebook' when called with 'source' as the argument.</summary>
+            <param name="segmentGroup">The segmentGroup to get the current segment value for.</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleRecoverPassword(System.String,System.String,PlayerIOClient.Callback)">
-            <summary>Initiates the password recovery process for a user. The user must have supplied an email address during registration.</summary>
-            <param name="gameId">The game id of the game the user is registered in.</param>
-            <param name="usernameOrEmail">The username or email address of the user that wishes to recover his password.</param>
-            <param name="successCallback">Callback if successful</param>
+        <member name="M:PlayerIOClient.PlayerInsight.Refresh">
+            <summary>Refresh the players online counter and the current segments of the user.</summary>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.SimpleRecoverPassword(System.String,System.String,PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Initiates the password recovery process for a user. The user must have supplied an email address during registration.</summary>
-            <param name="gameId">The game id of the game the user is registered in.</param>
-            <param name="usernameOrEmail">The username or email address of the user that wishes to recover his password.</param>
-            <param name="successCallback">Callback if successful</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        <member name="M:PlayerIOClient.PlayerInsight.Refresh(PlayerIOClient.Callback)">
+            <summary>Refresh the players online counter and the current segments of the user.</summary>
+            <param name="successCallback">Callback that will be called when the operation succeeds</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.FacebookOAuthConnect(System.String,System.String,System.String)">
-            <summary>Authenticates a Facebook user using a Facebook access_token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="access_token">The Facebook access_token for the user.</param>
-            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
-            <returns>The connected client</returns>
+        <member name="M:PlayerIOClient.PlayerInsight.Refresh(PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Refresh the players online counter and the current segments of the user.</summary>
+            <param name="successCallback">Callback that will be called when the operation succeeds</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.FacebookOAuthConnect(System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client})">
-            <summary>Authenticates a Facebook user using a Facebook access_token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="access_token">The Facebook access_token for the user.</param>
-            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
+        <member name="M:PlayerIOClient.PlayerInsight.TrackInvitedBy(System.String,System.String)">
+            <summary>Tell PlayerInsight who invited the current user in this session. Used for viral analysis.</summary>
+            <param name="invitingUserId">The connectUserId of the user who invited this user.</param>
+            <param name="invitationChannel">An identifier for the channel the invitation was received over, like 'email' or 'fb_invite'.</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.FacebookOAuthConnect(System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Authenticates a Facebook user using a Facebook access_token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="access_token">The Facebook access_token for the user.</param>
-            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        <member name="M:PlayerIOClient.PlayerInsight.TrackInvitedBy(System.String,System.String,PlayerIOClient.Callback)">
+            <summary>Tell PlayerInsight who invited the current user in this session. Used for viral analysis.</summary>
+            <param name="invitingUserId">The connectUserId of the user who invited this user.</param>
+            <param name="invitationChannel">An identifier for the channel the invitation was received over, like 'email' or 'fb_invite'.</param>
+            <param name="successCallback">Callback that will be called when the operation was completed successfully</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.KongregateConnect(System.String,System.String,System.String)">
-            <summary>Authenticates a Kongregate user and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="userId">The Kongregate user id of the user you wish to authenticate.</param>
-            <param name="gameAuthToken">The Kongregate game auth token of the user's session.</param>
-            <returns>The connected client</returns>
+        <member name="M:PlayerIOClient.PlayerInsight.TrackInvitedBy(System.String,System.String,PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Tell PlayerInsight who invited the current user in this session. Used for viral analysis.</summary>
+            <param name="invitingUserId">The connectUserId of the user who invited this user.</param>
+            <param name="invitationChannel">An identifier for the channel the invitation was received over, like 'email' or 'fb_invite'.</param>
+            <param name="successCallback">Callback that will be called when the operation was completed successfully</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.KongregateConnect(System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client})">
-            <summary>Authenticates a Kongregate user and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="userId">The Kongregate user id of the user you wish to authenticate.</param>
-            <param name="gameAuthToken">The Kongregate game auth token of the user's session.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
+        <member name="M:PlayerIOClient.PlayerInsight.TrackEvent(System.String,System.Int32)">
+            <summary>Track the given event for the current user in PlayerInsight</summary>
+            <param name="eventType">The name of the event to track.</param>
+            <param name="value">The amount to add to the counter value.</param>
         </member>
-        <member name="M:PlayerIOClient.QuickConnect.KongregateConnect(System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
-            <summary>Authenticates a Kongregate user and returns a connection token.</summary>
-            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
-            <param name="userId">The Kongregate user id of the user you wish to authenticate.</param>
-            <param name="gameAuthToken">The Kongregate game auth token of the user's session.</param>
-            <param name="successCallback">Callback with the connected client, if successful</param>
-            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        <member name="M:PlayerIOClient.PlayerInsight.TrackEvent(System.String,System.Int32,PlayerIOClient.Callback)">
+            <summary>Track the given event for the current user in PlayerInsight</summary>
+            <param name="eventType">The name of the event to track.</param>
+            <param name="value">The amount to add to the counter value.</param>
+            <param name="successCallback">Callback that will be called when the operation was completed successfully</param>
+        </member>
+        <member name="M:PlayerIOClient.PlayerInsight.TrackEvent(System.String,System.Int32,PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Track the given event for the current user in PlayerInsight</summary>
+            <param name="eventType">The name of the event to track.</param>
+            <param name="value">The amount to add to the counter value.</param>
+            <param name="successCallback">Callback that will be called when the operation was completed successfully</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
+        </member>
+        <member name="M:PlayerIOClient.PlayerInsight.TrackExternalPayment(System.String,System.Int32)">
+            <summary>Track a completed payment in PlayerInsight from an external non-PayVault payment method.</summary>
+            <param name="currency">The currency the payment was made in.</param>
+            <param name="amount">The amount of the payment in the given currency.</param>
+        </member>
+        <member name="M:PlayerIOClient.PlayerInsight.TrackExternalPayment(System.String,System.Int32,PlayerIOClient.Callback)">
+            <summary>Track a completed payment in PlayerInsight from an external non-PayVault payment method.</summary>
+            <param name="currency">The currency the payment was made in.</param>
+            <param name="amount">The amount of the payment in the given currency.</param>
+            <param name="successCallback">Callback that will be called when the operation was completed successfully</param>
+        </member>
+        <member name="M:PlayerIOClient.PlayerInsight.TrackExternalPayment(System.String,System.Int32,PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Track a completed payment in PlayerInsight from an external non-PayVault payment method.</summary>
+            <param name="currency">The currency the payment was made in.</param>
+            <param name="amount">The amount of the payment in the given currency.</param>
+            <param name="successCallback">Callback that will be called when the operation was completed successfully</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the operation.</param>
+        </member>
+        <member name="P:PlayerIOClient.PlayerInsight.PlayersOnline">
+            <summary>The numbers of players online in the entire game</summary>
+        </member>
+        <member name="T:PlayerIOClient.Yahoo">
+            <summary>
+            Yahoo
+            </summary>
+        </member>
+        <member name="M:PlayerIOClient.Yahoo.Refresh">
+            <summary>Refresh Profiles and Relations.</summary>
+        </member>
+        <member name="M:PlayerIOClient.Yahoo.Refresh(PlayerIOClient.Callback)">
+            <summary>Refresh Profiles and Relations.</summary>
+            <param name="successCallback">Callback that will be called when the refresh is complete.</param>
+        </member>
+        <member name="M:PlayerIOClient.Yahoo.Refresh(PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Refresh Profiles and Relations.</summary>
+            <param name="successCallback">Callback that will be called when the refresh is complete.</param>
+            <param name="errorCallback">Callback that will be called if the refresh fails.</param>
+        </member>
+        <member name="P:PlayerIOClient.Yahoo.Profiles">
+            <summary>Access to Yahoo profiles</summary> 
+        </member>
+        <member name="P:PlayerIOClient.Yahoo.Payments">
+            <summary>Access to Yahoo payments</summary> 
+        </member>
+        <member name="P:PlayerIOClient.Yahoo.Relations">
+            <summary>Access to the users Yahoo relations</summary> 
+        </member>
+        <member name="P:PlayerIOClient.Yahoo.UserToken">
+            <summary> A UserToken that can be used to authenticate as the current user.</summary>
+        </member>
+        <member name="T:PlayerIOClient.YahooPayments">
+            <summary>
+            The Yahoo payments service
+            </summary>
+        </member>
+        <member name="M:PlayerIOClient.YahooPayments.ShowBuyCoinsDialog(System.Int32,System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.Callback{System.Collections.Generic.Dictionary{System.String,System.String}})">
+            <summary>Shows a dialog for buying coins.</summary>
+            <param name="coinamount">The amount of coins to buy.</param>
+            <param name="purchaseArguments">Any additional information that is needed to show the payment dialog.</param>
+            <param name="successCallback">Callback that will be called with the result of the payment dialog.</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooPayments.ShowBuyCoinsDialog(System.Int32,System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.Callback{System.Collections.Generic.Dictionary{System.String,System.String}},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Shows a dialog for buying coins.</summary>
+            <param name="coinamount">The amount of coins to buy.</param>
+            <param name="purchaseArguments">Any additional information that is needed to show the payment dialog.</param>
+            <param name="successCallback">Callback that will be called with the result of the payment dialog.</param>
+            <param name="errorCallback">Callback that will be called if the dialog fails.</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooPayments.ShowBuyItemsDialog(PlayerIOClient.BuyItemInfo[],System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.Callback{System.Collections.Generic.Dictionary{System.String,System.String}})">
+            <summary>Shows a dialog for buying items.</summary>
+            <param name="items">Each BuyItemInfo instance contains the key of the item to buy and any additional payload.</param>
+            <param name="purchaseArguments">Any additional information that is needed to show the payment dialog.</param>
+            <param name="successCallback">Callback that will be called with the result of the payment dialog.</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooPayments.ShowBuyItemsDialog(PlayerIOClient.BuyItemInfo[],System.Collections.Generic.Dictionary{System.String,System.String},PlayerIOClient.Callback{System.Collections.Generic.Dictionary{System.String,System.String}},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Shows a dialog for buying items.</summary>
+            <param name="items">Each BuyItemInfo instance contains the key of the item to buy and any additional payload.</param>
+            <param name="purchaseArguments">Any additional information that is needed to show the payment dialog.</param>
+            <param name="successCallback">Callback that will be called with the result of the payment dialog.</param>
+            <param name="errorCallback">Callback that will be called if the dialog fails.</param>
+        </member>
+        <member name="T:PlayerIOClient.YahooProfiles">
+            <summary>
+            The Yahoo profile service
+            </summary>
+        </member>
+        <member name="M:PlayerIOClient.YahooProfiles.ShowProfile(System.String,PlayerIOClient.Callback)">
+            <summary>
+            Show the profile for the specified user
+            </summary>
+            <param name="userId">The userId of the user</param>
+            <param name="closedCallback">Callback that will be called when the profile page is closed</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooProfiles.LoadProfiles(System.String[])">
+            <summary>Load a set of Yahoo profiles</summary>
+        </member>
+        <member name="M:PlayerIOClient.YahooProfiles.LoadProfiles(System.String[],PlayerIOClient.Callback{PlayerIOClient.YahooProfile[]})">
+            <summary>Load a set of Yahoo profiles</summary>
+            <param name="userIds">The userIds of the profiles to load.</param>
+            <param name="successCallback">Callback that will be called with the loaded profiles.</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooProfiles.LoadProfiles(System.String[],PlayerIOClient.Callback{PlayerIOClient.YahooProfile[]},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Load a set of Yahoo profiles</summary>
+            <param name="userIds">The userIds of the profiles to load.</param>
+            <param name="successCallback">Callback that will be called with the loaded profiles.</param>
+            <param name="errorCallback">Callback that will be called if the load fails.</param>
+        </member>
+        <member name="P:PlayerIOClient.YahooProfiles.MyProfile">
+            <summary>The profile of the current user</summary>
+        </member>
+        <member name="T:PlayerIOClient.YahooProfile">
+            <summary>A Yahoo profile </summary>
+        </member>
+        <member name="P:PlayerIOClient.YahooProfile.UserId">
+            <summary>The userId of the user</summary>
+        </member>
+        <member name="P:PlayerIOClient.YahooProfile.DisplayName">
+            <summary>The displayname of the user</summary>
+        </member>
+        <member name="P:PlayerIOClient.YahooProfile.AvatarUrl">
+            <summary>The url to the avatar of the user</summary>
+        </member>
+        <member name="P:PlayerIOClient.YahooProfile.LastOnline">
+            <summary>When was this user last seen</summary>
+        </member>
+        <member name="P:PlayerIOClient.YahooProfile.CountryCode">
+            <summary>The country code of the user</summary>
+        </member>
+        <member name="T:PlayerIOClient.YahooRelations">
+            <summary>
+            The Yahoo relations service
+            </summary>
+        </member>
+        <member name="M:PlayerIOClient.YahooRelations.IsFriend(System.String)">
+             <summary>Check if a specific user is a friend</summary>
+            <param name="userId">The userId of the user to check.</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooRelations.IsBlocked(System.String)">
+             <summary>Check if a specific user is blocked</summary>
+            <param name="userId">The userId of the user to check.</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooRelations.ShowRequestFriendshipDialog(System.String,PlayerIOClient.Callback)">
+            <summary>Shows a dialog where the user can choose to send a friend request to the specified user.</summary>
+            <param name="userId">The userId of the user that will receive the friendship request, if sent</param>
+            <param name="closedCallback">Callback that will be called when the dialog is closed</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooRelations.ShowRequestBlockUserDialog(System.String,PlayerIOClient.Callback)">
+            <summary>Shows a dialog where the user can choose to block a specific user</summary>
+            <param name="userId">The userId of the user to block</param>
+            <param name="closedCallback">Callback that will be called when the dialog is closed</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooRelations.ShowFriendsManager(PlayerIOClient.Callback)">
+            <summary>Shows the a dialog where the user can manage their friends list.</summary>
+            <param name="closedCallback">Callback that will be called when the dialog closes</param>
+        </member>
+        <member name="M:PlayerIOClient.YahooRelations.ShowBlockedUsersManager(PlayerIOClient.Callback)">
+            <summary>Shows the a dialog where the user can manage their blocked users list.</summary>
+            <param name="closedCallback">Callback that will be called when the dialog closes</param>
+        </member>
+        <member name="P:PlayerIOClient.YahooRelations.Friends">
+            <summary>List of all friends</summary>
         </member>
         <member name="T:PlayerIOClient.PayVault">
             <summary>
@@ -515,7 +582,7 @@
             <code>
             PayVault vault = client.PayVault;
             vault.Refresh();
-            int coins = vault.Coins;
+            long coins = vault.CoinsLong;
             </code>
             
             <para>This is how you check if an item exists:</para>
@@ -1653,81 +1720,95 @@
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultReadHistory(System.UInt32,System.UInt32)">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultReadHistory(System.UInt32,System.UInt32,System.String)">
             <summary>Read the users PayVault history in reverse chronological order</summary>
             <param name="page">The page to start at. Page 1 contains the latest transactions</param>
             <param name="pageSize">The size of each page</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultReadHistory(System.UInt32,System.UInt32,PlayerIOClient.Callback{System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultHistoryEntry}},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultReadHistory(System.UInt32,System.UInt32,System.String,PlayerIOClient.Callback{System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultHistoryEntry}},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Read the users PayVault history in reverse chronological order</summary>
             <param name="page">The page to start at. Page 1 contains the latest transactions</param>
             <param name="pageSize">The size of each page</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultRefresh(System.String)">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultRefresh(System.String,System.String)">
             <summary>Download a user's vault (balance and items)</summary>
             <param name="lastVersion">If specified, will only return vault items if value has changed since last version.</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultRefresh(System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultRefresh(System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Download a user's vault (balance and items)</summary>
             <param name="lastVersion">If specified, will only return vault items if value has changed since last version.</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultConsume(System.Collections.Generic.List{System.String})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultConsume(System.Collections.Generic.List{System.String},System.String)">
             <summary>Consume one or more items from user's PayVault</summary>
             <param name="ids">The ids of the PayVaultItems to use</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultConsume(System.Collections.Generic.List{System.String},PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultConsume(System.Collections.Generic.List{System.String},System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Consume one or more items from user's PayVault</summary>
             <param name="ids">The ids of the PayVaultItems to use</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultCredit(System.UInt32,System.String)">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultCredit(System.UInt32,System.String,System.String)">
             <summary>Put coins into PayVault</summary>
             <param name="amount">The amount of coins to add to the vault</param>
             <param name="reason">The reason that will appear in the vault history</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultCredit(System.UInt32,System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultCredit(System.UInt32,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Put coins into PayVault</summary>
             <param name="amount">The amount of coins to add to the vault</param>
             <param name="reason">The reason that will appear in the vault history</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultDebit(System.UInt32,System.String)">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultDebit(System.UInt32,System.String,System.String)">
             <summary>Remove coins from PayVault</summary>
             <param name="amount">The coin amount to remove from the vault</param>
             <param name="reason">The reason that will appear in the vault history</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultDebit(System.UInt32,System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultDebit(System.UInt32,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Remove coins from PayVault</summary>
             <param name="amount">The coin amount to remove from the vault</param>
             <param name="reason">The reason that will appear in the vault history</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuy(System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuyItemInfo},System.Boolean)">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuy(System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuyItemInfo},System.Boolean,System.String)">
             <summary>Buy PayVault items</summary>
             <param name="items">The list of items to buy</param>
             <param name="storeItems">Whether or not to store the items in the vault after purchase</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuy(System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuyItemInfo},System.Boolean,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuy(System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuyItemInfo},System.Boolean,System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Buy PayVault items</summary>
             <param name="items">The list of items to buy</param>
             <param name="storeItems">Whether or not to store the items in the vault after purchase</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultGive(System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuyItemInfo})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultGive(System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuyItemInfo},System.String)">
             <summary>Give PayVault items to a user</summary>
             <param name="items">The list of items to give</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
         </member>
-        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultGive(System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuyItemInfo},PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PayVaultGive(System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.PayVaultBuyItemInfo},System.String,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.PayVaultContents},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Give PayVault items to a user</summary>
             <param name="items">The list of items to give</param>
+            <param name="targetUserId">If specified, will return the history of the target user instead of the current user</param>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
@@ -1989,6 +2070,60 @@
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PlayerInsightSessionKeepAlive">
+            <summary>Keep the current session alive</summary>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PlayerInsightSessionKeepAlive(PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Keep the current session alive</summary>
+            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
+            <param name="onError">Callback method to be executed if request fails</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PlayerInsightSessionStop">
+            <summary>Terminate the current session</summary>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.PlayerInsightSessionStop(PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Terminate the current session</summary>
+            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
+            <param name="onError">Callback method to be executed if request fails</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.OneScoreLoad(System.Collections.Generic.List{System.String})">
+            <summary>Load OneScore for other users</summary>
+            <param name="userIds">The user ids to load OneScore for</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.OneScoreLoad(System.Collections.Generic.List{System.String},PlayerIOClient.Callback{System.Collections.Generic.List{PlayerIOClient.Internal.PlayerIOChannel.OneScoreValue}},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Load OneScore for other users</summary>
+            <param name="userIds">The user ids to load OneScore for</param>
+            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
+            <param name="onError">Callback method to be executed if request fails</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.OneScoreSet(System.Int32)">
+            <summary>Set the OneScore for the user</summary>
+            <param name="score">The value to set the OneScore to</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.OneScoreSet(System.Int32,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.OneScoreValue},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Set the OneScore for the user</summary>
+            <param name="score">The value to set the OneScore to</param>
+            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
+            <param name="onError">Callback method to be executed if request fails</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.OneScoreAdd(System.Int32)">
+            <summary>Add to the OneScore for the user</summary>
+            <param name="score">The value to add to the OneScore</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.OneScoreAdd(System.Int32,PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.OneScoreValue},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Add to the OneScore for the user</summary>
+            <param name="score">The value to add to the OneScore</param>
+            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
+            <param name="onError">Callback method to be executed if request fails</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.OneScoreRefresh">
+            <summary>Loads the OneScore value for the user</summary>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.OneScoreRefresh(PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.OneScoreValue},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Loads the OneScore value for the user</summary>
+            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
+            <param name="onError">Callback method to be executed if request fails</param>
+        </member>
         <member name="M:PlayerIOClient.Internal.PlayerIOChannel.SimpleConnect(System.String,System.String,System.String,System.Collections.Generic.List{System.String},System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>Authenticates a user in the simple user db and returns a connection token.</summary>
             <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
@@ -2122,6 +2257,14 @@
             <param name="playerInsightSegments">Segments to tag the user into in PlayerInsight</param>
             <param name="clientAPI">The id of the client api used to connect.</param>
             <param name="clientInfo">Information about the environment of the client.</param>
+            <param name="onSuccess">Callback method to be executed when request completes successfully</param>
+            <param name="onError">Callback method to be executed if request fails</param>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.SimpleUserGetSecureLoginInfo">
+            <summary>Gets certificate and nonce for secure password transmission over http</summary>
+        </member>
+        <member name="M:PlayerIOClient.Internal.PlayerIOChannel.SimpleUserGetSecureLoginInfo(PlayerIOClient.Callback{PlayerIOClient.Internal.PlayerIOChannel.SimpleUserGetSecureLoginInfoOutput},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Gets certificate and nonce for secure password transmission over http</summary>
             <param name="onSuccess">Callback method to be executed when request completes successfully</param>
             <param name="onError">Callback method to be executed if request fails</param>
         </member>
@@ -3102,6 +3245,203 @@
             If true, the multiplayer connections will be encrypted using TLS/SSL. Beaware that this will cause a performance degredation by introducting secure connection negotiation latency.
             </summary>
         </member>
+        <member name="T:PlayerIOClient.QuickConnect">
+            <summary>
+            Entry class for making a QuickConnect connection to Player.IO
+            <para>Here is an example on how to register a new SimpleUser:</para>
+            <code>
+            //Register a SimpleUser
+            PlayerIO.QuickConnect.SimpleRegister(
+            	"[Enter your game id here]",
+            	"username",
+            	"password",
+            	"email",
+            	null, //Optional captchakey
+            	null, //Optional captchavalue
+            	null, //Optional extra data
+            	null, //Optional partner id
+            	delegate(Client client) {
+            		//Here's a client, do something with the client.
+            	},
+            	delegate(PlayerIORegistrationError error) {
+            		Console.WriteLine(error.Message);
+            	}
+            );
+            </code>
+            <para>And a returning user can connect like this:</para>
+            <code>
+            //Connect with a SimpleUser
+            PlayerIO.QuickConnect.SimpleConnect(
+            	"[Enter your game id here]",
+            	"username",
+            	"password",
+            	delegate(Client client) {
+            		//Here's a client, do something with the client.
+            	},
+            	delegate(PlayerIORegistrationError error) {
+            		Console.WriteLine(error.Message);
+            	}
+            );
+            </code>
+            <para>After registering or connecting, you get a Client object which you can then use just as if you used the regular Connect method.</para>
+            <para>Note that unlike the regular Connect method you don't specify the name of the connection to use, instead you set this up in the QuickConnect admin panel for your game.</para>
+            </summary>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleConnect(System.String,System.String,System.String,System.String[])">
+            <summary>Authenticates a user in the simple user db and returns a connection token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="usernameOrEmail">The username or email of the user you wish to authenticate.</param>
+            <param name="password">The password of the user you wish to authenticate.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <returns>The connected client</returns>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleConnect(System.String,System.String,System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client})">
+            <summary>Authenticates a user in the simple user db and returns a connection token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="usernameOrEmail">The username or email of the user you wish to authenticate.</param>
+            <param name="password">The password of the user you wish to authenticate.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the connected client, if successful</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleConnect(System.String,System.String,System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Authenticates a user in the simple user db and returns a connection token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="usernameOrEmail">The username or email of the user you wish to authenticate.</param>
+            <param name="password">The password of the user you wish to authenticate.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the connected client, if successful</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleGetCaptcha(System.String,System.Int32,System.Int32)">
+            <summary>Creates a Captcha image and key, to be used for registrations where the added security of Captcha is required..</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
+            <param name="width">The width of the Captcha image.</param>
+            <param name="height">The height of the Captcha image.</param>
+            <returns>Information about the captcha image</returns>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleGetCaptcha(System.String,System.Int32,System.Int32,PlayerIOClient.Callback{PlayerIOClient.SimpleGetCaptchaOutput})">
+            <summary>Creates a Captcha image and key, to be used for registrations where the added security of Captcha is required..</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
+            <param name="width">The width of the Captcha image.</param>
+            <param name="height">The height of the Captcha image.</param>
+            <param name="successCallback">Callback with information about the captcha image, if successful</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleGetCaptcha(System.String,System.Int32,System.Int32,PlayerIOClient.Callback{PlayerIOClient.SimpleGetCaptchaOutput},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Creates a Captcha image and key, to be used for registrations where the added security of Captcha is required..</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
+            <param name="width">The width of the Captcha image.</param>
+            <param name="height">The height of the Captcha image.</param>
+            <param name="successCallback">Callback with information about the captcha image, if successful</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleRegister(System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String[])">
+            <summary>Registers a new user in the simple user db and returns a connection token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
+            <param name="username">The username of the new user.</param>
+            <param name="password">The password of the new user.</param>
+            <param name="email">The email of the new user. (optional)</param>
+            <param name="captchaKey">(only if captcha is required) The key of the Captcha image used to get the user to write in the Captcha value</param>
+            <param name="captchaValue">(only if captcha is required) The string the user entered in response to the captcha image</param>
+            <param name="extraData">Any extra data that you wish to store with the user such as gender, birthdate, etc. (optional)</param>
+            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <returns>The connected client</returns>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleRegister(System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client})">
+            <summary>Registers a new user in the simple user db and returns a connection token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
+            <param name="username">The username of the new user.</param>
+            <param name="password">The password of the new user.</param>
+            <param name="email">The email of the new user. (optional)</param>
+            <param name="captchaKey">(only if captcha is required) The key of the Captcha image used to get the user to write in the Captcha value</param>
+            <param name="captchaValue">(only if captcha is required) The string the user entered in response to the captcha image</param>
+            <param name="extraData">Any extra data that you wish to store with the user such as gender, birthdate, etc. (optional)</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
+            <param name="successCallback">Callback with the connected client, if successful</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleRegister(System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIORegistrationError})">
+            <summary>Registers a new user in the simple user db and returns a connection token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel.</param>
+            <param name="username">The username of the new user.</param>
+            <param name="password">The password of the new user.</param>
+            <param name="email">The email of the new user. (optional)</param>
+            <param name="captchaKey">(only if captcha is required) The key of the Captcha image used to get the user to write in the Captcha value</param>
+            <param name="captchaValue">(only if captcha is required) The string the user entered in response to the captcha image</param>
+            <param name="extraData">Any extra data that you wish to store with the user such as gender, birthdate, etc. (optional)</param>
+            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the connected client, if successful</param>
+            <param name="errorCallback">Callback with details about why the registration failed, if it failed.</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleRecoverPassword(System.String,System.String)">
+            <summary>Initiates the password recovery process for a user. The user must have supplied an email address during registration.</summary>
+            <param name="gameId">The game id of the game the user is registered in.</param>
+            <param name="usernameOrEmail">The username or email address of the user that wishes to recover his password.</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleRecoverPassword(System.String,System.String,PlayerIOClient.Callback)">
+            <summary>Initiates the password recovery process for a user. The user must have supplied an email address during registration.</summary>
+            <param name="gameId">The game id of the game the user is registered in.</param>
+            <param name="usernameOrEmail">The username or email address of the user that wishes to recover his password.</param>
+            <param name="successCallback">Callback if successful</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.SimpleRecoverPassword(System.String,System.String,PlayerIOClient.Callback,PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Initiates the password recovery process for a user. The user must have supplied an email address during registration.</summary>
+            <param name="gameId">The game id of the game the user is registered in.</param>
+            <param name="usernameOrEmail">The username or email address of the user that wishes to recover his password.</param>
+            <param name="successCallback">Callback if successful</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.FacebookOAuthConnect(System.String,System.String,System.String,System.String[])">
+            <summary>Authenticates a Facebook user using a Facebook access_token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="access_token">The Facebook access_token for the user.</param>
+            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <returns>The connected client</returns>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.FacebookOAuthConnect(System.String,System.String,System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client})">
+            <summary>Authenticates a Facebook user using a Facebook access_token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="access_token">The Facebook access_token for the user.</param>
+            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the connected client, if successful</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.FacebookOAuthConnect(System.String,System.String,System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Authenticates a Facebook user using a Facebook access_token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="access_token">The Facebook access_token for the user.</param>
+            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the connected client, if successful</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.KongregateConnect(System.String,System.String,System.String,System.String[])">
+            <summary>Authenticates a Kongregate user and returns a connection token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="userId">The Kongregate user id of the user you wish to authenticate.</param>
+            <param name="gameAuthToken">The Kongregate game auth token of the user's session.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <returns>The connected client</returns>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.KongregateConnect(System.String,System.String,System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client})">
+            <summary>Authenticates a Kongregate user and returns a connection token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="userId">The Kongregate user id of the user you wish to authenticate.</param>
+            <param name="gameAuthToken">The Kongregate game auth token of the user's session.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the connected client, if successful</param>
+        </member>
+        <member name="M:PlayerIOClient.QuickConnect.KongregateConnect(System.String,System.String,System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Authenticates a Kongregate user and returns a connection token.</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="userId">The Kongregate user id of the user you wish to authenticate.</param>
+            <param name="gameAuthToken">The Kongregate game auth token of the user's session.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the connected client, if successful</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs.</param>
+        </member>
         <member name="M:PlayerIOClient.Web.Get(System.String)">
             <summary>Perform a HTTP Get request.</summary>
             <param name="url">The url to request, including querystring arguments (if any)</param>
@@ -3353,7 +3693,7 @@
             <summary>The supplied data is incorrect</summary>
         </member>
         <member name="F:PlayerIOClient.ErrorCode.InvalidBigDBKey">
-            <summary>The key given for the BigDB object is not a valid BigDB key. BigDB keys must be between 1 and 50 word characters (no spaces).</summary>
+            <summary>The key given for the BigDB object is not a valid BigDB key. Keys must be between 1 and 50 characters. Only letters, numbers, hyphens, underbars, and spaces are allowed.</summary>
         </member>
         <member name="F:PlayerIOClient.ErrorCode.BigDBObjectTooLarge">
             <summary>The object exceeds the maximum allowed size for BigDB objects.</summary>
@@ -3451,11 +3791,20 @@
         <member name="F:PlayerIOClient.ErrorCode.NetworkIssue">
             <summary>There is an issue with the network</summary>
         </member>
+        <member name="F:PlayerIOClient.ErrorCode.OneScoreNotLoaded">
+            <summary>Cannot access OneScore before Refresh() has been called.</summary>
+        </member>
         <member name="F:PlayerIOClient.ErrorCode.YahooNotAvailable">
             <summary>The Yahoo features are only avaliable when authenticated to PlayerIO using Yahoo authentication. Authentication methods are managed in the connections setting of your game in the admin panel on PlayerIO.</summary>
         </member>
         <member name="F:PlayerIOClient.ErrorCode.YahooNotLoaded">
             <summary>Cannot access profile, friends, ignored before Yahoo has been loaded. Please refresh Yahoo first.</summary>
+        </member>
+        <member name="F:PlayerIOClient.ErrorCode.DialogClosed">
+            <summary>The dialog was closed by the user</summary>
+        </member>
+        <member name="F:PlayerIOClient.ErrorCode.AdTrackCheckCookie">
+            <summary>Check cookie required.</summary>
         </member>
         <member name="T:PlayerIOClient.Message">
             <summary>
@@ -3715,6 +4064,31 @@
             Property used to access the PayVault service.
             </summary>
         </member>
+        <member name="P:PlayerIOClient.Client.PlayerInsight">
+            <summary>
+            Property used to access the PlayerInsight service.
+            </summary>
+        </member>
+        <member name="P:PlayerIOClient.Client.GameRequests">
+            <summary>
+            Property used to access the GameRequests service
+            </summary>
+        </member>
+        <member name="P:PlayerIOClient.Client.Achievements">
+            <summary>
+            Property used to access the Achievements service
+            </summary>
+        </member>
+        <member name="P:PlayerIOClient.Client.Yahoo">
+            <summary>
+            Property used to access the Yahoo social network
+            </summary>
+        </member>
+        <member name="P:PlayerIOClient.Client.OneScore">
+            <summary>
+            Property used to access the OneScore service
+            </summary>
+        </member>
         <member name="T:PlayerIOClient.PlayerIO">
             <summary>
             Entry class for the initial connection to Player.IO
@@ -3735,7 +4109,23 @@
             <summary>Calculate an auth hash for use in the Connect method</summary>
             <param name="userId">The userid to use when generating the hash</param>
             <param name="sharedSecret">The shared secret to use when generating the hash. This must be the same value as the one given to a connection in the admin panel.</param>
-            <returns>The generated auth hash</returns>
+            <returns>The generated auth hash.  (This is based on SHA-1, which has been deprecated.  Use CalcAuth256 for values based on SHA-256.)</returns>
+        </member>
+        <member name="M:PlayerIOClient.PlayerIO.CalcAuth256(System.String,System.String)">
+            <summary>Calculate an auth hash for use in the Connect method</summary>
+            <param name="userId">The userid to use when generating the hash</param>
+            <param name="sharedSecret">The shared secret to use when generating the hash. This must be the same value as the one given to a connection in the admin panel.</param>
+            <returns>The generated auth hash (based on SHA-256)</returns>
+        </member>
+        <member name="M:PlayerIOClient.PlayerIO.Connect(System.String,System.String,System.String,System.String,System.String,System.String[])">
+            <summary>Connects to Player.IO using as the given user</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="connectionId">The id of the connection, as given in the settings section of the admin panel. 'public' should be used as the default</param>
+            <param name="userId">The id of the user connecting. This can be any string you like.</param>
+            <param name="auth">If the connection identified by ConnectionIdentifier only accepts authenticated requests, the auth value generated based on UserId is added here. You can generate an auth value using the CalcAuth() method.</param>
+            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <returns>A UserClient object from which Player.IO can be accessed.</returns>
         </member>
         <member name="M:PlayerIOClient.PlayerIO.Connect(System.String,System.String,System.String,System.String,System.String)">
             <summary>Connects to Player.IO using as the given user</summary>
@@ -3746,6 +4136,16 @@
             <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
             <returns>A UserClient object from which Player.IO can be accessed.</returns>
         </member>
+        <member name="M:PlayerIOClient.PlayerIO.Connect(System.String,System.String,System.String,System.String,System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client})">
+            <summary>Connects to Player.IO using as the given user</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="connectionId">The id of the connection, as given in the settings section of the admin panel. 'public' should be used as the default</param>
+            <param name="userId">The id of the user connecting. This can be any string you like.</param>
+            <param name="auth">If the connection identified by ConnectionIdentifier only accepts authenticated requests, the auth value generated based on UserId is added here. You can generate an auth value using the CalcAuth() method.</param>
+            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the client object when connected</param>
+        </member>
         <member name="M:PlayerIOClient.PlayerIO.Connect(System.String,System.String,System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client})">
             <summary>Connects to Player.IO using as the given user</summary>
             <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
@@ -3754,6 +4154,17 @@
             <param name="auth">If the connection identified by ConnectionIdentifier only accepts authenticated requests, the auth value generated based on UserId is added here. You can generate an auth value using the CalcAuth() method.</param>
             <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
             <param name="successCallback">Callback with the client object when connected</param>
+        </member>
+        <member name="M:PlayerIOClient.PlayerIO.Connect(System.String,System.String,System.String,System.String,System.String,System.String[],PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Connects to Player.IO using as the given user</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="connectionId">The id of the connection, as given in the settings section of the admin panel. 'public' should be used as the default</param>
+            <param name="userId">The id of the user connecting. This can be any string you like.</param>
+            <param name="auth">If the connection identified by ConnectionIdentifier only accepts authenticated requests, the auth value generated based on UserId is added here. You can generate an auth value using the CalcAuth() method.</param>
+            <param name="partnerId">The PartnerPay partner id this user should be tagged with, if you are using the PartnerPay system.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the client object when connected</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the connect.</param>
         </member>
         <member name="M:PlayerIOClient.PlayerIO.Connect(System.String,System.String,System.String,System.String,System.String,PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
             <summary>Connects to Player.IO using as the given user</summary>
@@ -3765,9 +4176,38 @@
             <param name="successCallback">Callback with the client object when connected</param>
             <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the connect.</param>
         </member>
+        <member name="M:PlayerIOClient.PlayerIO.Authenticate(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
+            <summary>Connects to Player.IO using as the given user</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="connectionId">The id of the connection, as given in the settings section of the admin panel. 'public' should be used as the default</param>
+            <param name="authenticationArguments">A dictionary of arguments for the given connection.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+        </member>
+        <member name="M:PlayerIOClient.PlayerIO.Authenticate(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String[],PlayerIOClient.Callback{PlayerIOClient.Client})">
+            <summary>Connects to Player.IO using as the given user</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="connectionId">The id of the connection, as given in the settings section of the admin panel. 'public' should be used as the default</param>
+            <param name="authenticationArguments">A dictionary of arguments for the given connection.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the client object when connected</param>
+        </member>
+        <member name="M:PlayerIOClient.PlayerIO.Authenticate(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String[],PlayerIOClient.Callback{PlayerIOClient.Client},PlayerIOClient.Callback{PlayerIOClient.PlayerIOError})">
+            <summary>Connects to Player.IO using as the given user</summary>
+            <param name="gameId">The game id of the game you wish to connect to. This value can be found in the admin panel</param>
+            <param name="connectionId">The id of the connection, as given in the settings section of the admin panel. 'public' should be used as the default</param>
+            <param name="authenticationArguments">A dictionary of arguments for the given connection.</param>
+            <param name="playerInsightSegments">Custom segments for the user in PlayerInsight.</param>
+            <param name="successCallback">Callback with the client object when connected</param>
+            <param name="errorCallback">Callback that will be called instead of successCallback if an error occurs during the connect.</param>
+        </member>
         <member name="P:PlayerIOClient.PlayerIO.UseSecureApiRequests">
             <summary>
             If true, API Requests will be encrypted using TLS/SSL. Beaware that this will cause a performance degredation by introducting secure connection negotiation latency for requests.
+            </summary>
+        </member>
+        <member name="P:PlayerIOClient.PlayerIO.ApiServerHost">
+            <summary>
+            If set, API request will initially use this host. 
             </summary>
         </member>
         <member name="P:PlayerIOClient.PlayerIO.QuickConnect">
