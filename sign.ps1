@@ -1,3 +1,7 @@
+param(
+[string]$version
+)
+
 # Import developer command prompt commands
 pushd 'C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools'
 cmd /c "vsvars32.bat&set" |
@@ -17,7 +21,6 @@ ildasm PlayerIOClient.dll /out:temp/PlayerIOClient.il
 ilasm temp/PlayerIOClient.il /dll /resource=temp/PlayerIOClient.res /key=KeyPair.snk /out:temp/PlayerIOClient.dll
 
 # Create the NuGet package
-$version = [System.Reflection.Assembly]::LoadFrom("PlayerIOClient.dll").GetName().Version.ToString();
 .\NuGet.exe pack PlayerIOClient-Signed.nuspec -OutputDirectory out -Properties version=$version
 
 # Remote temp
